@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AMPM 1% Gym</title>
+<style>
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap');
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+ body {
+ font-family: 'Poppins', sans-serif;
+ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+ color: #f0f0f0;
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
+ }
+ header {
+ padding: 2rem;
+ text-align: center;
+ background: rgba(0,0,0,0.4);
+ backdrop-filter: blur(10px);
+ box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+ }
+ header h1 {
+ font-size: 3rem;
+ font-weight: 800;
+ letter-spacing: 0.15em;
+ color: #00ffd5;
+ text-shadow: 0 0 10px #00ffd5;
+ margin-bottom: 0.25rem;
+ }
+ header p {
+ font-size: 1.25rem;
+ color: #a0f7e1;
+ font-weight: 600;
+ letter-spacing: 0.1em;
+ }
+ #search-bar-container {
+ max-width: 1200px;
+ margin: 1rem auto 3rem auto;
+ padding: 0 1.5rem;
+ display: flex;
+ justify-content: center;
+ }
+ #search-input {
+ width: 100%;
+ max-width: 400px;
+ font-size: 1.1rem;
+ padding: 0.6rem 1rem;
+ border-radius: 30px;
+ border: none;
+ outline: none;
+ box-shadow: 0 2px 10px rgba(0,255,213,0.4);
+ background-color: #112f35;
+ color: #e0f7f6;
+ transition: box-shadow 0.3s ease;
+ }
+ #search-input::placeholder {
+ color: #66eeff99;
+ }
+ #search-input:focus {
+ box-shadow: 0 0 12px #00ffd5cc;
+ }
+ main {
+ flex: 1;
+ padding: 0 1.5rem 3rem 1.5rem;
+ max-width: 1200px;
+ margin: 0 auto;
+ display: flex;
+ flex-direction: column;
+ gap: 4rem;
+ }
+ section {
+ margin-bottom: 0;
+ }
+ h2.section-title {
+ font-weight: 800;
+ font-size: 2.5rem;
+ color: #ffd600;
+ margin-bottom: 1rem;
+ text-shadow: 0 0 10px #ffd600;
+ text-align: center;
+ }
+ p.section-desc {
+ max-width: 720px;
+ margin: 0 auto 2.5rem auto;
+ font-size: 1.2rem;
+ font-weight: 500;
+ color: #ececec;
+ line-height: 1.7;
+ text-align: center;
+ }
+ .specialty, .diet-section, .about-gym, .vision {
+ max-width: 700px;
+ margin: 0 auto;
+ text-align: center;
+ }
+ .diet-text {
+ font-size: 1.15rem;
+ font-weight: 500;
+ color: #ddd;
+ }
+ .plans {
+ display: flex;
+ justify-content: center;
+ gap: 2rem;
+ flex-wrap: wrap;
+ }
+ .plan-card {
+ background: rgba(255,255,255,0.05);
+ border-radius: 15px;
+ box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+ padding: 2rem;
+ width: 280px;
+ text-align: center;
+ transition: transform 0.3s ease, box-shadow 0.3s ease;
+ cursor: default;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ }
+ .plan-card:hover {
+ transform: translateY(-10px);
+ box-shadow: 0 16px 30px #ffca28aa;
+ }
+ .plan-name {
+ font-size: 1.9rem;
+ font-weight: 700;
+ margin-bottom: 0.25rem;
+ text-transform: uppercase;
+ letter-spacing: 0.12em;
+ color: #ffca28;
+ text-shadow: 0 0 10px #ffca28;
+ }
+ .plan-level {
+ font-size: 1rem;
+ color: #f0e68c;
+ margin-bottom: 1rem;
+ font-weight: 600;
+ }
+ .plan-desc {
+ font-size: 1rem;
+ color: #ddd;
+ margin-bottom: 1.8rem;
+ min-height: 70px;
+ }
+ .plan-features {
+ list-style: none;
+ margin-bottom: 2rem;
+ padding: 0;
+ }
+ .plan-features li {
+ font-size: 1rem;
+ font-weight: 500;
+ margin: 0.5rem 0;
+ position: relative;
+ padding-left: 1.6rem;
+ color: #d1c4e9;
+ }
+ .plan-features li::before {
+ content: '✓';
+ position: absolute;
+ left: 0;
+ color: #ffca28;
+ font-weight: 900;
+ }
+ .cta-button {
+ padding: 0.75rem 2rem;
+ background: #00ffd5;
+ color: #082a2a;
+ border: none;
+ font-weight: 700;
+ font-size: 1.1rem;
+ border-radius: 50px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+ box-shadow: 0 0 12px #00ffd5aa;
+ user-select: none;
+ align-self: center;
+ }
+ .cta-button:hover {
+ background: #00b39f;
+ color: #e0f7f6;
+ }
+ .team-section {
+ max-width: 1000px;
+ margin: 0 auto;
+ }
+ .team-grid {
+ display: flex;
+ justify-content: center;
+ gap: 2rem;
+ flex-wrap: wrap;
+ }
+ .team-member {
+ background: rgba(255,255,255,0.07);
+ border-radius: 15px;
+ box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+ text-align: center;
+ padding: 1.5rem 1rem 2rem 1rem;
+ transition: transform 0.3s ease;
+ width: 280px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ }
+ .team-member:hover {
+ transform: translateY(-10px);
+ box-shadow: 0 16px 30px #00ffd5cc;
+ }
+ .team-photo {
+ border-radius: 50%;
+ width: 140px;
+ height: 140px;
+ object-fit: cover;
+ margin-bottom: 1rem;
+ box-shadow: 0 0 10px #00ffd5aa;
+ }
+ .team-name {
+ font-size: 1.3rem;
+ font-weight: 700;
+ color: #00ffd5;
+ margin-bottom: 0.5rem;
+ }
+ .team-role {
+ font-weight: 600;
+ color: #a0f7e1;
+ margin-bottom: 0.75rem;
+ }
+ .team-bio {
+ font-size: 0.95rem;
+ color: #d6f6f4;
+ line-height: 1.4;
+ }
+ .tips-slider-wrapper {
+ position: relative;
+ max-width: 1000px;
+ margin: 0 auto;
+ }
+ .tips-slider {
+ display: flex;
+ overflow-x: auto;
+ scroll-behavior: smooth;
+ -webkit-overflow-scrolling: touch;
+ padding-bottom: 1rem;
+ scrollbar-width: none;
+ }
+ .tips-slider::-webkit-scrollbar {
+ display: none;
+ }
+ .tip-card {
+ background: rgba(0, 255, 213, 0.15);
+ border-radius: 15px;
+ box-shadow: 0 10px 25px rgba(0,255,213,0.3);
+ flex: 0 0 280px;
+ margin-right: 1.5rem;
+ padding: 1.8rem 2rem;
+ text-align: center;
+ transition: transform 0.3s ease, box-shadow 0.3s ease;
+ user-select: none;
+ }
+ .tip-card:last-child {
+ margin-right: 0;
+ }
+ .tip-card:hover {
+ transform: translateY(-8px);
+ box-shadow: 0 15px 35px rgba(0,255,213,0.6);
+ }
+ .tip-icon {
+ font-size: 3.6rem;
+ color: #00ffd5;
+ margin-bottom: 1rem;
+ }
+ .tip-title {
+ font-weight: 700;
+ font-size: 1.5rem;
+ color: #00ffd5;
+ margin-bottom: 0.75rem;
+ text-transform: uppercase;
+ letter-spacing: 0.1em;
+ }
+ .tip-desc {
+ font-size: 1rem;
+ color: #ccf6f1;
+ line-height: 1.6;
+ }
+ .slider-arrow {
+ position: absolute;
+ top: 50%;
+ transform: translateY(-50%);
+ background: #00ffd5aa;
+ border-radius: 50%;
+ width: 42px;
+ height: 42px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color: #082a2a;
+ font-weight: 800;
+ font-size: 2rem;
+ cursor: pointer;
+ user-select: none;
+ transition: background-color 0.3s ease;
+ z-index: 10;
+ }
+ .slider-arrow:hover {
+ background: #00b39fcc;
+ color: #e0f7f6;
+ }
+ .slider-arrow-left {
+ left: -22px;
+ }
+ .slider-arrow-right {
+ right: -22px;
+ }
+ .testimonial-slider-wrapper {
+ position: relative;
+ max-width: 1000px;
+ margin: 0 auto;
+ }
+ .testimonial-slider {
+ display: flex;
+ overflow-x: auto;
+ scroll-behavior: smooth;
+ -webkit-overflow-scrolling: touch;
+ padding-bottom: 1rem;
+ scrollbar-width: none;
+ }
+ .testimonial-slider::-webkit-scrollbar {
+ display: none;
+ }
+ .testimonial-card {
+ background: rgba(0, 255, 213, 0.15);
+ border-radius: 15px;
+ box-shadow: 0 10px 25px rgba(0,255,213,0.3);
+ flex: 0 0 280px;
+ margin-right: 1.5rem;
+ padding: 1.8rem 2rem;
+ font-style: italic;
+ color: #ccf6f1;
+ position: relative;
+ user-select: none;
+ }
+ .testimonial-card:last-child {
+ margin-right: 0;
+ }
+ .testimonial-card::before {
+ content: "“";
+ font-size: 3rem;
+ position: absolute;
+ top: 0.2rem;
+ left: 1rem;
+ color: #00ffd5;
+ }
+ .testimonial-author {
+ margin-top: 0.75rem;
+ text-align: right;
+ font-weight: 700;
+ color: #00ffd5;
+ font-size: 1rem;
+ }
+ /* FAQ Section */
+ .faq-section {
+ max-width: 900px;
+ margin: 0 auto;
+ }
+ .faq-item {
+ background: rgba(0,255, 213, 0.15);
+
+ box-shadow: 0 10px 25px rgba(0,255,213,0.3);
+ margin-bottom: 1rem;
+ padding: 1rem 0.5rem;
+ }
+ .faq-question {
+ font-weight: 700;
+ cursor: pointer;
+ color: #00ffd5;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ font-size: 1.1rem;
+ }
+ .faq-answer {
+ margin-top: 0.5rem;
+ line-height: 1.4;
+ color: #ccf6f1;
+ display: none;
+ font-weight: 500;
+ }
+ .faq-question:hover {
+ color: #ffd600;
+ }
+ .contact-section {
+ max-width: 700px;
+ margin: 0 auto;
+ text-align: center;
+ }
+ .contact-section p {
+ margin-bottom: 2rem;
+ font-size: 1.15rem;
+ font-weight: 500;
+ color: #ccc;
+ }
+ .contact-info {
+ margin-bottom: 2rem;
+ font-size: 1rem;
+ color: #a0f7e1;
+ }
+ .contact-info strong {
+ color: #00ffd5;
+ }
+ .contact-form {
+ background: rgba(255,255,255,0.07);
+ padding: 1.8rem 2rem;
+ border-radius: 15px;
+ box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+ }
+ .contact-form label {
+ display: block;
+ font-weight: 600;
+ margin-bottom: 0.25rem;
+ color: #a0f7e1;
+ }
+ .contact-form input,
+ .contact-form textarea {
+ width: 100%;
+ padding: 0.5rem 0.75rem;
+ margin-bottom: 1rem;
+ border-radius: 8px;
+ border: none;
+ font-family: 'Poppins', sans-serif;
+ font-size: 1rem;
+ outline-offset: 2px;
+ resize: vertical;
+ }
+ .contact-form input:focus,
+ .contact-form textarea:focus {
+ outline: 2px solid #00ffd5;
+ background: #125656;
+ color: #e0f7f6;
+ }
+ .contact-form textarea {
+ min-height: 100px;
+ }
+ .contact-form button {
+ background: #00ffd5;
+ border: none;
+ border-radius: 50px;
+ padding: 0.75rem 2rem;
+ font-weight: 700;
+ font-size: 1.1rem;
+ color: #082a2a;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+ box-shadow: 0 0 12px #00ffd5aa;
+ }
+ .contact-form button:hover {
+ background: #00b39f;
+ color: #e0f7f6;
+ }
+ footer {
+ padding: 1.5rem 1rem;
+ text-align: center;
+ color: #555;
+ background: rgba(0,0,0,0.4);
+ font-size: 0.9rem;
+ user-select: none;
+ }
+ /* Modal styles */
+ .modal-overlay {
+ position: fixed;
+ inset: 0;
+ background: rgba(10,10,10,0.85);
+ display: none;
+ justify-content: center;
+ align-items: center;
+ z-index: 9999;
+ padding: 1rem;
+ backdrop-filter: blur(8px);
+ }
+ .modal-overlay.active {
+ display: flex;
+ animation: fadeIn 0.3s ease forwards;
+ }
+ @keyframes fadeIn {
+ from {opacity: 0;}
+ to {opacity: 1;}
+ }
+ .modal-content {
+ background: #112f35;
+ border-radius: 15px;
+ max-width: 500px;
+ width: 100%;
+ padding: 2rem 2.5rem;
+ box-shadow: 0 12px 30px rgba(0,0,0,0.95);
+ color: #e0f7f6;
+ position: relative;
+ }
+ .modal-content h2 {
+ margin-bottom: 1.25rem;
+ font-weight: 700;
+ font-size: 2rem;
+ color: #00ffd5;
+ text-align: center;
+ text-shadow: 0 0 8px #00ffd5;
+ }
+ .close-btn {
+ position: absolute;
+ top: 0.75rem;
+ right: 1rem;
+ background: transparent;
+ border: none;
+ font-size: 2.5rem;
+ color: #00ffd5dd;
+ cursor: pointer;
+ font-weight: 800;
+ line-height: 1;
+ user-select: none;
+ }
+ form#join-form {
+ display: flex;
+ flex-direction: column;
+ gap: 1rem;
+ }
+ #join-form label {
+ font-weight: 600;
+ font-size: 0.9rem;
+ margin-bottom: 0.15rem;
+ color: #a0f7e1;
+ }
+ #join-form input, #join-form select {
+ padding: 0.5rem 0.75rem;
+ border-radius: 8px;
+ border: none;
+ font-size: 1rem;
+ font-family: 'Poppins', sans-serif;
+ outline-offset: 2px;
+ }
+ #join-form input:focus, #join-form select:focus {
+ outline: 2px solid #00ffd5;
+ background: #125656;
+ color: #e0f7f6;
+ }
+ #join-form .submit-btn {
+ margin-top: 1rem;
+ background: #ffca28;
+ color: #112f35;
+ font-weight: 700;
+ font-size: 1.1rem;
+ padding: 0.75rem 0;
+ border-radius: 50px;
+ border: none;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+ user-select: none;
+ }
+ #join-form .submit-btn:hover {
+ background: #f0b200;
+ }
+ /* Responsive */
+ @media (max-width: 992px) {
+ .diet-section,
+ .plans,
+ .team-grid {
+ flex-direction: column;
+ align-items: center;
+ }
+ .plan-card, .team-member {
+ width: 90%;
+ max-width: 320px;
+ }
+ }
+</style>
+</head>
+<body>
+<header>
+ <h1>AMPM 1%</h1>
+ <p>Specializing in AI Training & AI Diet Programs</p>
+</header>
+
+<div id="search-bar-container">
+ <input type="search" id="search-input" placeholder="Search Tips, Plans, & More..." aria-label="Search through the website content" />
+</div>
+
+<main>
+
+ <section class="specialty" aria-label="Gym Specialties">
+ <h2 class="section-title">Our Specialties</h2>
+ <p class="section-desc">
+ At AMPM 1%, we harness the power of Artificial Intelligence to tailor your training and diet plans for optimal results.
+ Experience cutting-edge AI-driven workouts and personalized nutrition for peak performance.
+ </p>
+ </section>
+
+ <section class="diet-section" aria-label="Diet Program">
+ <div class="diet-text">
+ <h2 class="section-title">AI Diet Program</h2>
+ <p>
+ Our AI Diet Program analyzes your unique health parameters and preferences to create a customized nutrition plan that optimizes your wellbeing and performance.
+ Forget guesswork and fad diets - get smart, data-driven nutrition to fuel your goals.
+ </p>
+ <p>
+ From meal recommendations to grocery lists, our AI ensures your diet adapts as you progress, making healthy eating effortless and personalized like never before.
+ </p>
+ </div>
+ </section>
+
+ <section class="about-gym" aria-label="About AMPM 1% Gym">
+ <h2 class="section-title">Explore About Gym</h2>
+ <p>
+ AMPM 1% Gym is not just a fitness center; it is a revolution in personal training.
+ Integrating artificial intelligence into every aspect of your fitness journey, we provide customized coaching, dynamic workout routines, and real-time progress analytics that adapt as you evolve.
+ </p>
+ <p>
+ Our team of expert trainers collaborates with cutting-edge AI systems to push the boundaries of traditional training,
+ delivering unparalleled results in strength, endurance, and wellness, all under one roof.
+ </p>
+ </section>
+
+ <section class="plans" aria-label="Gym Plans">
+ <article class="plan-card" aria-labelledby="diamond-plan">
+ <h3 id="diamond-plan" class="plan-name">Diamond Plan</h3>
+ <p class="plan-level">Elite Level</p>
+ <p class="plan-desc">
+ For those who want top-tier AI-driven training with exclusive personalized coaching and advanced analytics.
+ </p>
+ <ul class="plan-features">
+ <li>One-on-one AI coaching</li>
+ <li>Custom AI diet plan</li>
+ <li>24/7 gym access</li>
+ <li>Performance analytics & feedback</li>
+ <li>Priority support & community events</li>
+ </ul>
+ <button class="cta-button join-btn" data-plan="Diamond Plan" aria-label="Join Diamond Plan">Join Now</button>
+ </article>
+
+ <article class="plan-card" aria-labelledby="platinum-plan">
+ <h3 id="platinum-plan" class="plan-name">Platinum Plan</h3>
+ <p class="plan-level">Advanced Level</p>
+ <p class="plan-desc">
+ Balanced AI training with flexible diet options and group classes designed with AI insights.
+ </p>
+ <ul class="plan-features">
+ <li>Group AI training sessions</li>
+ <li>Flexible AI diet guidelines</li>
+ <li>Gym access 6 days a week</li>
+ <li>Progress tracking dashboard</li>
+ <li>Access to webinars & workshops</li>
+ </ul>
+ <button class="cta-button join-btn" data-plan="Platinum Plan" aria-label="Join Platinum Plan">Join Now</button>
+ </article>
+
+ <article class="plan-card" aria-labelledby="gold-plan">
+ <h3 id="gold-plan" class="plan-name">Gold Plan</h3>
+ <p class="plan-level">Basic Level</p>
+ <p class="plan-desc">
+ An excellent introduction to AI-guided fitness and nutrition with real-time app support.
+ </p>
+ <ul class="plan-features">
+ <li>AI-guided workout plans</li>
+ <li>Basic AI diet suggestions</li>
+ <li>Gym access 4 days a week</li>
+ <li>Mobile app support</li>
+ <li>Community forum access</li>
+ </ul>
+ <button class="cta-button join-btn" data-plan="Gold Plan" aria-label="Join Gold Plan">Join Now</button>
+ </article>
+ </section>
+
+ <section class="team-section" aria-label="Our Team">
+ <h2 class="section-title">Our Team</h2>
+ <p class="section-desc">
+ Meet the passionate professionals combining expertise and AI innovation to help you achieve your best self.
+ </p>
+ <div class="team-grid" role="list">
+ <div class="team-member" role="listitem">
+ <img src="https://randomuser.me/api/portraits/men/91.jpg" alt="Rohit Sharma - Head Coach" class="team-photo" loading="lazy" />
+ <h3 class="team-name">Rohit Sharma</h3>
+ <p class="team-role">Head Coach</p>
+ <p class="team-bio">With over a decade of fitness training experience, Rohit combines AI and personal coaching to deliver outstanding results.</p>
+ </div>
+ <div class="team-member" role="listitem">
+ <img src="https://randomuser.me/api/portraits/women/90.jpg" alt="Priya Patel - AI Nutritionist" class="team-photo" loading="lazy" />
+ <h3 class="team-name">Priya Patel</h3>
+ <p class="team-role">AI Nutritionist</p>
+ <p class="team-bio">Priya specializes in developing personalized AI-driven diet plans tailored to each individual's unique needs.</p>
+ </div>
+ <div class="team-member" role="listitem">
+ <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="Vikram Singh - Wellness Specialist" class="team-photo" loading="lazy" />
+ <h3 class="team-name">Vikram Singh</h3>
+ <p class="team-role">Wellness Specialist</p>
+ <p class="team-bio">Vikram integrates mental and physical wellness using the latest AI methodologies for holistic health.</p>
+ </div>
+ </div>
+ </section>
+
+ <section class="vision" aria-label="Our Vision">
+ <h2 class="section-title">Our Vision</h2>
+ <p>
+ To revolutionize fitness and nutrition by seamlessly combining human expertise with the power of Artificial Intelligence — empowering members to unlock their fullest potential and achieve sustainable, lifelong wellness.
+ </p>
+ </section>
+
+ <section aria-label="Get Tips for Workout, Nutrition and Wellness">
+ <h2 class="section-title">Get Tips</h2>
+ <div class="tips-slider-wrapper" style="position:relative; max-width:1000px; margin:0 auto;">
+ <button class="slider-arrow slider-arrow-left" aria-label="Scroll tips left" style="position:absolute;top:50%;left:-22px;transform: translateY(-50%);background:#00ffd5aa;border-radius:50%;width:42px;height:42px;display:flex;justify-content:center;align-items:center;color:#082a2a; font-weight:800; font-size:2rem; cursor:pointer; user-select:none; transition:background-color 0.3s ease;z-index:10;">&#10094;</button>
+ <div class="tips-slider" tabindex="0" role="list" id="tips-slider" style="display:flex;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch; padding-bottom:1rem; scrollbar-width:none;">
+ <!-- 15 tip cards -->
+ <article class="tip-card" role="listitem" aria-labelledby="tip1-title" aria-describedby="tip1-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip1-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Stay Consistent</h3>
+ <p id="tip1-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Aim for at least 150 minutes of moderate exercise each week, mixing strength and cardio.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip2-title" aria-describedby="tip2-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip2-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Balanced Diet</h3>
+ <p id="tip2-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Eat whole foods with lean proteins, healthy fats, and plenty of veggies and fruits.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip3-title" aria-describedby="tip3-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip3-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Prioritize Sleep</h3>
+ <p id="tip3-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Getting 7-9 hours of sleep supports recovery, stress management, and overall health.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip4-title" aria-describedby="tip4-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip4-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Warm Up Properly</h3>
+ <p id="tip4-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Spend 5-10 minutes warming up to reduce injury risk and improve performance.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip5-title" aria-describedby="tip5-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip5-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Stay Hydrated</h3>
+ <p id="tip5-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Drink water consistently throughout the day to maintain energy and focus.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip6-title" aria-describedby="tip6-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip6-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Meditate Daily</h3>
+ <p id="tip6-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Even 5 minutes of meditation can improve mental clarity and reduce stress.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip7-title" aria-describedby="tip7-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip7-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Strength Train</h3>
+ <p id="tip7-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Incorporate resistance training to build muscle and boost metabolism.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip8-title" aria-describedby="tip8-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip8-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Eat Mindfully</h3>
+ <p id="tip8-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Focus on your meals without distractions to aid digestion and satisfaction.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip9-title" aria-describedby="tip9-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip9-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Spend Time Outdoors</h3>
+ <p id="tip9-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Nature time can improve mood, reduce stress, and increase physical activity.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip10-title" aria-describedby="tip10-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip10-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Mix It Up</h3>
+ <p id="tip10-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Vary workouts to avoid plateaus and keep motivation high.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip11-title" aria-describedby="tip11-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip11-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Plan Meals</h3>
+ <p id="tip11-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Planning helps prevent poor last-minute food choices and supports goals.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip12-title" aria-describedby="tip12-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip12-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Practice Gratitude</h3>
+ <p id="tip12-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Writing or reflecting on gratitude improves emotional well-being.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip13-title" aria-describedby="tip13-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip13-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Rest & Recovery</h3>
+ <p id="tip13-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Allow time for muscles to recover to prevent injury and boost progress.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip14-title" aria-describedby="tip14-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip14-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Eat More Fiber</h3>
+ <p id="tip14-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Fiber aids digestion, maintains blood sugar, and keeps you full longer.</p>
+ </article>
+ <article class="tip-card" role="listitem" aria-labelledby="tip15-title" aria-describedby="tip15-desc" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;padding:1.8rem 2rem;text-align:center;transition:transform 0.3s ease, box-shadow 0.3s ease; user-select:none;">
+ <div class="tip-icon" aria-hidden="true" style="font-size:3.6rem; color:#00ffd5; margin-bottom:1rem;"> </div>
+ <h3 id="tip15-title" class="tip-title" style="font-weight:700; font-size:1.5rem; color:#00ffd5; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">Manage Screen Time</h3>
+ <p id="tip15-desc" class="tip-desc" style="font-size:1rem; color:#ccf6f1; line-height:1.6;">Reducing screen time before bed improves sleep quality and overall health.</p>
+ </article>
+ </div>
+ <button class="slider-arrow slider-arrow-right" aria-label="Scroll tips right" style="position:absolute;top:50%;right:-22px;transform: translateY(-50%);background:#00ffd5aa;border-radius:50%;width:42px;height:42px;display:flex;justify-content:center;align-items:center;color:#082a2a; font-weight:800; font-size:2rem; cursor:pointer; user-select:none; transition:background-color 0.3s ease;z-index:10;">&#10095;</button>
+ </div>
+ </section>
+
+ <section class="testimonial-slider-wrapper" aria-label="Testimonials">
+ <h2 class="section-title">Testimonials</h2>
+ <button class="slider-arrow slider-arrow-left" aria-label="Scroll testimonials left" style="position:absolute;top:50%;left:-22px;transform: translateY(-50%);background:#00ffd5aa;border-radius:50%;width:42px;height:42px;display:flex;justify-content:center;align-items:center;color:#082a2a; font-weight:800; font-size:2rem; cursor:pointer; user-select:none; transition:background-color 0.3s ease;z-index:10;">&#10094;</button>
+ <div class="testimonial-slider" tabindex="0" role="list" style="display:flex;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch; padding-bottom:1rem; scrollbar-width:none; max-width: 1000px; margin:0 auto;">
+ <article class="testimonial-card" role="listitem" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;font-style:italic;color:#ccf6f1;position:relative;user-select:none;">
+ "AMPM 1% helped me break my plateau with AI-customized workouts. Best gym experience ever!"
+ <div class="testimonial-author" style="margin-top:0.75rem;text-align:right;font-weight:700;color:#00ffd5;font-size:1rem;">- Hazeena Joshi</div>
+ </article>
+ <article class="testimonial-card" role="listitem" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;font-style:italic;color:#ccf6f1;position:relative;user-select:none;">
+ "The AI diet program tailored meals perfectly. I feel more energetic and focused."
+ <div class="testimonial-author" style="margin-top:0.75rem;text-align:right;font-weight:700;color:#00ffd5;font-size:1rem;">- Bhumika Gupta</div>
+ </article>
+ <article class="testimonial-card" role="listitem" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;font-style:italic;color:#ccf6f1;position:relative;user-select:none;">
+ "The trainers combine AI insights and personal attention wonderfully. Highly recommend!"
+ <div class="testimonial-author" style="margin-top:0.75rem;text-align:right;font-weight:700;color:#00ffd5;font-size:1rem;">- Sakshi Agrawal</div>
+ </article>
+ <article class="testimonial-card" role="listitem" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;font-style:italic;color:#ccf6f1;position:relative;user-select:none;">
+ "Personalized programs that really work. I've never felt better."
+ <div class="testimonial-author" style="margin-top:0.75rem;text-align:right;font-weight:700;color:#00ffd5;font-size:1rem;">- Arpit Pandey</div>
+ </article>
+ <article class="testimonial-card" role="listitem" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;font-style:italic;color:#ccf6f1;position:relative;user-select:none;">
+ "The AI-driven diet recommendations changed my life!"
+ <div class="testimonial-author" style="margin-top:0.75rem;text-align:right;font-weight:700;color:#00ffd5;font-size:1rem;">- Shruti Kothawade</div>
+ </article>
+ <article class="testimonial-card" role="listitem" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;font-style:italic;color:#ccf6f1;position:relative;user-select:none;">
+ "Cutting-edge and supportive gym community. Amazing results."
+ <div class="testimonial-author" style="margin-top:0.75rem;text-align:right;font-weight:700;color:#00ffd5;font-size:1rem;">- Zeenat Kamdar</div>
+ </article>
+ <article class="testimonial-card" role="listitem" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;margin-right:1.5rem;padding:1.8rem 2rem;font-style:italic;color:#ccf6f1;position:relative;user-select:none;">
+ "Great blend of tech and human coaching. Very motivational."
+ <div class="testimonial-author" style="margin-top:0.75rem;text-align:right;font-weight:700;color:#00ffd5;font-size:1rem;">- Vedant Dwivedi</div>
+ </article>
+ <article class="testimonial-card" role="listitem" style="background:rgba(0,255,213,0.15);border-radius:15px;box-shadow:0 10px 25px rgba(0,255,213,0.3);flex:0 0 280px;padding:1.8rem 2rem;font-style:italic;color:#ccf6f1;position:relative;user-select:none;">
+ "Highly recommend AMPM 1%, very personalized and professional!"
+ <div class="testimonial-author" style="margin-top:0.75rem;text-align:right;font-weight:700;color:#00ffd5;font-size:1rem;">- Rudranarayan Rout</div>
+ </article>
+ </div>
+ <button class="slider-arrow slider-arrow-right" aria-label="Scroll testimonials right" style="position:absolute;top:50%;right:-22px;transform: translateY(-50%);background:#00ffd5aa;border-radius:50%;width:42px;height:42px;display:flex;justify-content:center;align-items:center;color:#082a2a; font-weight:800; font-size:2rem; cursor:pointer; user-select:none; transition:background-color 0.3s ease;z-index:10;">&#10095;</button>
+ </section>
+
+ <section aria-label="Frequently Asked Questions" class="faq-section" style="max-width:900px; margin:0 auto;">
+ <h2 class="section-title">Frequently Asked Questions</h2>
+ <div class="faq-item"; margin-bottom:1rem; padding:0.5rem 1rem;">
+ <button class="faq-question" aria-expanded="false" aria-controls="faq1" aria-haspopup="true" id="faq1-btn" style="font-weight:700; cursor:pointer; color:#00ffd5; display:flex; justify-content:space-between; align-items:center; font-size:1.1rem;">
+ What makes AMPM 1% different from other gyms?
+ </button>
+ <div class="faq-answer" id="faq1" role="region" aria-labelledby="faq1-btn" style="margin-top:0.5rem; line-height:1.4; color:#ccf6f1; display:none; font-weight:500;">
+ AMPM 1% integrates advanced AI technology for personalized training and diet programs, providing smarter and more effective fitness results.
+ </div>
+ </div>
+ <div class="faq-item" style="background:transparent; margin-bottom:1rem; padding:0.5rem 1rem;">
+ <button class="faq-question" aria-expanded="false" aria-controls="faq2" aria-haspopup="true" id="faq2-btn" style="font-weight:700; cursor:pointer; color:#00ffd5; display:flex; justify-content:space-between; align-items:center; font-size:1.1rem;">
+ Can I change my plan later?
+ </button>
+ <div class="faq-answer" id="faq2" role="region" aria-labelledby="faq2-btn" style="margin-top:0.5rem; line-height:1.4; color:#ccf6f1; display:none; font-weight:500;">
+ Yes, members can upgrade or switch plans anytime to suit their evolving fitness goals.
+ </div>
+ </div>
+ <div class="faq-item" style="background:transparent; margin-bottom:1rem; padding:0.5rem 1rem;">
+ <button class="faq-question" aria-expanded="false" aria-controls="faq3" aria-haspopup="true" id="faq3-btn" style="font-weight:700; cursor:pointer; color:#00ffd5; display:flex; justify-content:space-between; align-items:center; font-size:1.1rem;">
+ Do you offer virtual training?
+ </button>
+ <div class="faq-answer" id="faq3" role="region" aria-labelledby="faq3-btn" style="margin-top:0.5rem; line-height:1.4; color:#ccf6f1; display:none; font-weight:500;">
+ Yes, virtual training and AI-guided coaching are available especially on Platinum and Diamond plans.
+ </div>
+ </div>
+ </section>
+
+ <section aria-label="Contact Us" class="contact-section">
+ <h2 class="section-title">Contact Us</h2>
+ <p>Have questions or want to visit? Reach out to AMPM 1% Gym!</p>
+ <div class="contact-info">
+ <p><strong>Address:</strong> 123 AI Fitness Avenue, Tech City</p>
+ <p><strong>Phone:</strong> +91 9876543210</p>
+ <p><strong>Email:</strong> info@ampm1percentgym.com</p>
+ </div>
+ <form class="contact-form" id="contact-form" action="https://formspree.io/f/xnndwydk" method="POST">
+ <label for="contact-name">Name <sup>*</sup></label>
+ <input type="text" id="contact-name" name="name" required autocomplete="name" placeholder="Your name" />
+ <label for="contact-email">Email <sup>*</sup></label>
+ <input type="email" id="contact-email" name="_replyto" required autocomplete="email" placeholder="Your email" />
+ <label for="contact-message">Message <sup>*</sup></label>
+ <textarea id="contact-message" name="message" required placeholder="Your message"></textarea>
+ <button type="submit" aria-label="Send message" class="submit-btn">Send Message</button>
+ </form>
+ </section>
+</main>
+
+<!-- Modal for Signup Form -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc" tabindex="-1" style="position:fixed; inset:0; background:rgba(10,10,10,0.85); display:none; justify-content:center; align-items:center; z-index:9999; padding:1rem; backdrop-filter:blur(8px);">
+ <div class="modal-content" style="background:#112f35; border-radius:15px; max-width:500px; width:100%; padding:2rem 2.5rem; box-shadow:0 12px 30px rgba(0,0,0,0.95); color:#e0f7f6; position:relative;">
+ <button class="close-btn" id="modal-close" aria-label="Close form" style="position:absolute; top:0.75rem; right:1rem; background:transparent; border:none; font-size:2.5rem; color:#00ffd5dd; cursor:pointer; font-weight:800; line-height:1; user-select:none;">&times;</button>
+ <h2 id="modal-title" style="margin-bottom:1.25rem; font-weight:700; font-size:2rem; color:#00ffd5; text-align:center; text-shadow:0 0 8px #00ffd5;">Join <span id="plan-name-modal"></span></h2>
+ <form id="join-form" novalidate action="https://formspree.io/f/xnndwydk" method="POST" style="display:flex; flex-direction:column; gap:1rem;">
+ <input type="hidden" name="_subject" value="New Gym Plan Joining Request" />
+ <input type="hidden" name="plan" id="hidden-plan" />
+ <label for="full-name" style="font-weight:600; font-size:0.9rem; margin-bottom:0.15rem; color:#a0f7e1;">Full Name <sup>*</sup></label>
+ <input type="text" id="full-name" name="name" placeholder="Your full name" required autocomplete="name" style="padding:0.5rem 0.75rem; border-radius:8px; border:none; font-size:1rem; font-family:'Poppins', sans-serif; outline-offset:2px;" />
+ <label for="address" style="font-weight:600; font-size:0.9rem; margin-bottom:0.15rem; color:#a0f7e1;">Address <sup>*</sup></label>
+ <input type="text" id="address" name="address" placeholder="Your address" required autocomplete="street-address" style="padding:0.5rem 0.75rem; border-radius:8px; border:none; font-size:1rem; font-family:'Poppins', sans-serif; outline-offset:2px;" />
+ <label for="weight" style="font-weight:600; font-size:0.9rem; margin-bottom:0.15rem; color:#a0f7e1;">Weight (kg) <sup>*</sup></label>
+ <input type="number" id="weight" name="weight" placeholder="Your weight in kg" min="10" max="500" required style="padding:0.5rem 0.75rem; border-radius:8px; border:none; font-size:1rem; font-family:'Poppins', sans-serif; outline-offset:2px;" />
+ <label for="mobile" style="font-weight:600; font-size:0.9rem; margin-bottom:0.15rem; color:#a0f7e1;">Mobile Number <sup>*</sup></label>
+ <input type="tel" id="mobile" name="mobile" placeholder="+1234567890" pattern="^\+?\d{7,15}$" required autocomplete="tel" style="padding:0.5rem 0.75rem; border-radius:8px; border:none; font-size:1rem; font-family:'Poppins', sans-serif; outline-offset:2px;" />
+ <label for="email" style="font-weight:600; font-size:0.9rem; margin-bottom:0.15rem; color:#a0f7e1;">Email Address</label>
+ <input type="email" id="email" name="email" placeholder="Your email address" autocomplete="email" style="padding:0.5rem 0.75rem; border-radius:8px; border:none; font-size:1rem; font-family:'Poppins', sans-serif; outline-offset:2px;" />
+ <label for="age" style="font-weight:600; font-size:0.9rem; margin-bottom:0.15rem; color:#a0f7e1;">Age</label>
+ <input type="number" id="age" name="age" placeholder="Your age" min="10" max="120" style="padding:0.5rem 0.75rem; border-radius:8px; border:none; font-size:1rem; font-family:'Poppins', sans-serif; outline-offset:2px;" />
+ <button type="submit" class="submit-btn" style="margin-top:1rem; background:#ffca28; color:#112f35; font-weight:700; font-size:1.1rem; padding:0.75rem 0; border-radius:50px; border:none; cursor:pointer; transition:background-color 0.3s ease; user-select:none;">Submit</button>
+ </form>
+ </div>
+</div>
+
+<footer>
+ &copy; 2024 AMPM 1% Gym. All rights reserved.
+</footer>
+
+<script>
+ const modal = document.getElementById('modal');
+ const planNameSpan = document.getElementById('plan-name-modal');
+ const closeModalBtn = document.getElementById('modal-close');
+ const joinForm = document.getElementById('join-form');
+ const joinButtons = document.querySelectorAll('.join-btn');
+ const hiddenPlanInput = document.getElementById('hidden-plan');
+
+ function openModal(planName) {
+ planNameSpan.textContent = planName;
+ hiddenPlanInput.value = planName;
+ modal.classList.add('active');
+ modal.focus();
+ joinForm.reset();
+ }
+ function closeModal() {
+ modal.classList.remove('active');
+ }
+ joinButtons.forEach(btn => btn.addEventListener('click', () => openModal(btn.getAttribute('data-plan'))));
+ closeModalBtn.addEventListener('click', closeModal);
+ modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+ document.addEventListener('keydown', e => { if ((e.key === 'Escape' || e.key === 'Esc') && modal.classList.contains('active')) closeModal(); });
+
+ // Tips slider controls
+ const tipsSlider = document.getElementById('tips-slider');
+ const tipsLeft = document.querySelector('.slider-arrow-left');
+ const tipsRight = document.querySelector('.slider-arrow-right');
+ tipsLeft.addEventListener('click', () => tipsSlider.scrollBy({ left: -300, behavior: 'smooth' }));
+ tipsRight.addEventListener('click', () => tipsSlider.scrollBy({ left: 300, behavior: 'smooth' }));
+
+ // Testimonials slider controls
+ const testimonialSlider = document.querySelector('.testimonial-slider');
+ const testimonialWrapper = document.querySelector('.testimonial-slider-wrapper');
+ const testimonialLeft = testimonialWrapper.querySelector('.slider-arrow-left');
+ const testimonialRight = testimonialWrapper.querySelector('.slider-arrow-right');
+ testimonialLeft.addEventListener('click', () => testimonialSlider.scrollBy({ left: -300, behavior: 'smooth' }));
+ testimonialRight.addEventListener('click', () => testimonialSlider.scrollBy({ left: 300, behavior: 'smooth' }));
+
+ // FAQ toggle
+ document.querySelectorAll('.faq-question').forEach(btn => {
+ btn.addEventListener('click', () => {
+ const controls = btn.getAttribute('aria-controls');
+ const answer = document.getElementById(controls);
+ const expanded = btn.getAttribute('aria-expanded') === 'true';
+ btn.setAttribute('aria-expanded', !expanded);
+ answer.style.display = expanded ? 'none' : 'block';
+ });
+ });
+
+ // Search functionality filters content in plans, tips, faq, testimonial sections
+ const searchInput = document.getElementById('search-input');
+ searchInput.addEventListener('input', () => {
+ const query = searchInput.value.trim().toLowerCase();
+
+ // Filter plan cards
+ document.querySelectorAll('.plan-card').forEach(card => {
+ card.style.display = card.textContent.toLowerCase().includes(query) ? '' : 'none';
+ });
+ // Filter tip cards
+ document.querySelectorAll('.tip-card').forEach(card => {
+ card.style.display = card.textContent.toLowerCase().includes(query) ? '' : 'none';
+ });
+ // Filter FAQ items
+ document.querySelectorAll('.faq-item').forEach(item => {
+ const q = item.querySelector('.faq-question').textContent.toLowerCase();
+ const a = item.querySelector('.faq-answer').textContent.toLowerCase();
+ item.style.display = (q.includes(query) || a.includes(query)) ? '' : 'none';
+ });
+ // Filter testimonials
+ document.querySelectorAll('.testimonial-card').forEach(card => {
+ card.style.display = card.textContent.toLowerCase().includes(query) ? '' : 'none';
+ });
+ });
+</script>
+</body>
+</html>
